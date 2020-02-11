@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 //引入 store.js，因为需要在count.js文件中调用store中的dispatch()方法和getState()方法。
 //因为之后可能有很多组件都需要用到store这个文件，所以直接在index.js中引入即可。
 // import store from '../redux/store';
-import {INCREMENT,DECREMENT} from '../redux/count_type';
-import {createDecrementAction,createIncrementAction} from '../redux/count_action_creator';
+import {INCREMENT,DECREMENT} from '../redux/count_type'
 
 export default class Count extends Component {
     
@@ -12,10 +11,8 @@ export default class Count extends Component {
         //获取用户选择的数字
         const value = this.refs.getValue.value;
         
-        //更新状态  value*1将其变为number类型,这种是自己手写的action
-        // this.props.store.dispatch({type:INCREMENT,data:value*1})
-        //使用count_action_creator.js传的action,调用dispatch分发一个'加’的action
-        this.props.store.dispatch(createIncrementAction(value*1))
+        //更新状态  value*1将其变为number类型
+        this.props.store.dispatch({type:INCREMENT,data:value*1})
         
 
     }
@@ -25,7 +22,7 @@ export default class Count extends Component {
         const value = this.refs.getValue.value;
        
         //更新状态
-        this.props.store.dispatch(createDecrementAction(value*1))
+        this.props.store.dispatch({type:DECREMENT,data:value*1})
     }
     //奇数才去加
     incrementOdd = () => {
@@ -35,7 +32,7 @@ export default class Count extends Component {
         const number = this.props.store.getState();
         //更新状态
         if(number%2===1){
-            this.props.store.dispatch(createIncrementAction(value*1))
+            this.props.store.dispatch({type:DECREMENT,data:value*1})
         }
     }
     //延迟一秒才加
@@ -45,7 +42,7 @@ export default class Count extends Component {
             //获取用户选择的数字
             const value = this.refs.getValue.value;
             //更新状态
-            this.props.store.dispatch(createIncrementAction(value*1))
+            this.props.store.dispatch({type:INCREMENT,data:value*1})
             
         }, 1000);
     }
